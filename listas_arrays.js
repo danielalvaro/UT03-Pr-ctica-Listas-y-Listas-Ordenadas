@@ -1,7 +1,3 @@
-//Pila: Solo puede sacarse el último elemento.
-//Cola: Permite insertar, extraer o comprobar si está vacía.
-//Lista: Se permite insertar o extraer cualquier elemento.
-
 num_elementos = 5;
 
 function create() {
@@ -33,15 +29,11 @@ function isFull(list) {
 }
 
 function size(list) {
-    var contador=0;
-    for (var i = 0; i < list.length; i++){
-        contador++;
-    }
-    return contador;
+    return list.length;
 }
 
 function add(list, elem) {
-    list[list.length] = elem;
+    list.push(elem);
     return list.length;
 }
 
@@ -55,34 +47,17 @@ function get(list, index) {
 }
 
 function toString(list) {
-    var cad = "";
-    for (var i = 0; i < list.length; i++) {
-        if (i != list.length - 1) {
-            cad = cad + list[i] + "-";
-        } else {
-            cad = cad + list[i];
-        }
-    }
+    var cad = list.toString();
     return cad;
 }
 
 function indexOf(list, elem) {
-    var pos = -1;
-    for (var i = 0; i < list.length; i++) {
-        if (list[i] == elem) {
-            pos = i;
-        }
-    }
+    var pos = list.indexOf(elem);
     return pos;
 }
 
 function lastIndexOf(list, elem) {
-    var pos = -1;
-    for (var i = list.length; i = 0; i--) {
-        if (list[i] == elem) {
-            pos = i;
-        }
-    }
+    var pos = list.lastIndexOf(elem);
     return pos;
 }
 
@@ -107,7 +82,7 @@ function lastElement(list) {
 
 function remove(list, index) {
     var elem = list[index];
-    list[index] = undefined;
+    list.splice(index,1);
     return elem;
 }
 
