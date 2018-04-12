@@ -1,7 +1,3 @@
-//Pila: Solo puede sacarse el último elemento.
-//Cola: Permite insertar, extraer o comprobar si está vacía.
-//Lista: Se permite insertar o extraer cualquier elemento.
-
 num_elementos = 5;
 
 function create() {
@@ -53,6 +49,15 @@ function add(list, elem) {
                     }
                 }
             }
+            for (var i = 1; i < list.length; i++) {
+                for (var j = 0; j < (list.length - i); j++) {
+                    if (list[j] > list[j + 1]) {
+                        k = list[j + 1];
+                        list[j + 1] = list[j];
+                        list[j] = k;
+                    }
+                }
+            }
         } else {
             console.log("Error. La lista está llena.");
         }
@@ -60,25 +65,8 @@ function add(list, elem) {
     }
 }
 
-function addAt(list, elem, index) {
-    if (size(list) < num_elementos) {
-        if (isNaN(elem)) {
-            console.log("Error. El elemento introducido no es de tipo 'Number'.");
-        } else {
-            if (index >= num_elementos || index < 0) {
-                console.log("El índice está fuera de los límites.");
-            } else {
-                list[index] = elem;
-            }
-        }
-    } else {
-        console.log("Error. La lista está llena.");
-    }
-    return size(list);
-}
-
 function get(list, index) {
-    if (index >= size(list) || index < 0) {
+    if (index >= num_elementos || index < 0) {
         console.log("El índice está fuera de los límites.");
     } else {
         return list[index];
@@ -183,23 +171,6 @@ function removeElement(list, elem) {
     }
 }
 
-function set(list, elem, index) {
-    if (isNaN(elem)) {
-        console.log("Error. El elemento introducido no es de tipo 'Number'.");
-    } else {
-        if (index >= num_elementos || index < 0) {
-            console.log("El índice está fuera de los límites.");
-        } else {
-            for (var i = 0; i < num_elementos; i++) {
-                if (list[i] == elem) {
-                    list[i] = index;
-                }
-            }
-            return elem;
-        }
-    }
-}
-
 
 
 
@@ -219,6 +190,15 @@ function test() {
     for (var i = 0; i < num_elementos - 2; i++) {
         list[i] = Math.floor(Math.random() * (10 - 0) + 0);
     }
+    for (var i = 1; i < list.length; i++) {
+        for (var j = 0; j < (list.length - i); j++) {
+            if (list[j] > list[j + 1]) {
+                k = list[j + 1];
+                list[j + 1] = list[j];
+                list[j] = k;
+            }
+        }
+    }
     console.log(list);
     console.log("isEmpty:");
     console.log(isEmpty(list));
@@ -228,9 +208,6 @@ function test() {
     console.log(size(list));
     console.log("add:");
     console.log(add(list, 2));
-    console.log(list);
-    console.log("addAt:");
-    console.log(addAt(list, 1, 4));
     console.log(list);
     console.log("get:");
     console.log(get(list, 2));
@@ -246,6 +223,15 @@ function test() {
     for (var i = 0; i < num_elementos; i++) {
         list[i] = Math.floor(Math.random() * (10 - 0) + 0);
     }
+    for (var i = 1; i < list.length; i++) {
+        for (var j = 0; j < (list.length - i); j++) {
+            if (list[j] > list[j + 1]) {
+                k = list[j + 1];
+                list[j + 1] = list[j];
+                list[j] = k;
+            }
+        }
+    }
     console.log(toString(list));
     console.log("firstElement:");
     console.log(firstElement(list));
@@ -256,9 +242,6 @@ function test() {
     console.log(toString(list));
     console.log("removeElement:");
     console.log(removeElement(list, 1));
-    console.log(toString(list));
-    console.log("set:");
-    console.log(set(list, 9, 4));
     console.log(toString(list));
 }
 

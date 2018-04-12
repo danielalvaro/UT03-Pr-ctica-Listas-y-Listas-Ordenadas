@@ -1,16 +1,13 @@
 num_elementos = 5;
 
 function create() {
-    var list = new Array(num_elementos);
-    for (var i = 0; i < list.length; i++) {
-        list[i] = Math.floor(Math.random() * (10 - 0) + 0);
-    }
+    var list = [];
     return list;
 }
 
 function isEmpty(list) {
     var empty = true;
-    for (var i = 0; i < list.length; i++) {
+    for (var i = 0; i < num_elementos; i++) {
         if (list[i] != undefined) {
             empty = false;
         }
@@ -20,7 +17,7 @@ function isEmpty(list) {
 
 function isFull(list) {
     var full = true;
-    for (var i = 0; i < list.length; i++) {
+    for (var i = 0; i < num_elementos; i++) {
         if (list[i] == undefined) {
             full = false;
         }
@@ -33,82 +30,135 @@ function size(list) {
 }
 
 function add(list, elem) {
-    list.push(elem);
-    return list.length;
+    if (isNaN(elem)) {
+        console.log("Error. El elemento introducido no es de tipo 'Number'.");
+    } else {
+        if (size(list) < num_elementos) {
+            list.push(elem);
+        } else {
+            console.log("Error. La lista está llena.");
+        }
+        return size(list);
+    }
 }
 
 function addAt(list, elem, index) {
-    list[index] = elem;
-    return list.length;
+    if (size(list) < num_elementos) {
+        if (isNaN(elem)) {
+            console.log("Error. El elemento introducido no es de tipo 'Number'.");
+        } else {
+            if (index >= num_elementos || index < 0) {
+                console.log("El índice está fuera de los límites.");
+            } else {
+                list[index] = elem;
+            }
+        }
+    } else {
+        console.log("Error. La lista está llena.");
+    }
+    return size(list);
 }
 
 function get(list, index) {
-    return list[index];
+    if (index >= num_elementos || index < 0) {
+        console.log("El índice está fuera de los límites.");
+    } else {
+        return list[index];
+    }
 }
 
 function toString(list) {
-    var cad = list.toString();
-    return cad;
+    return list.toString();
 }
 
 function indexOf(list, elem) {
-    var pos = list.indexOf(elem);
-    return pos;
+    if (isNaN(elem)) {
+        console.log("Error. El elemento introducido no es de tipo 'Number'.");
+    } else {
+        return list.indexOf(elem);
+    }
 }
 
 function lastIndexOf(list, elem) {
-    var pos = list.lastIndexOf(elem);
-    return pos;
+    if (isNaN(elem)) {
+        console.log("Error. El elemento introducido no es de tipo 'Number'.");
+    } else {
+        return list.latIndexOf(elem);
+    }
 }
 
 function capacity(list) {
-    return list.length;
+    return num_elementos;
 }
 
 function clear(list) {
-    list.length = 0;
+    list.length=0;
     return list;
 }
 
 function firstElement(list) {
-    var elem = list[0];
-    return elem;
+    if (size(list) == 0) {
+        console.log("Error. La lista está vacía.");
+    } else {
+        var elem = list[0];
+        return elem;
+    }
 }
 
 function lastElement(list) {
-    var elem = list[list.length - 1];
-    return elem;
+    if (size(list) == 0) {
+        console.log("Error. La lista está vacía.");
+    } else {
+        var elem = list[num_elementos - 1];
+        return elem;
+    }
 }
 
 function remove(list, index) {
-    var elem = list[index];
-    list.splice(index,1);
-    return elem;
+    if (index >= num_elementos || index < 0) {
+        console.log("El índice está fuera de los límites.");
+    } else {
+        var elem = list[index];
+        list.splice(index,1);
+        return elem;
+    }
 }
 
 function removeElement(list, elem) {
-    var bool = "0";
-    for (var i = 0; i < list.length; i++) {
-        if (list[i] == elem) {
-            list[i] = undefined;
-            bool = 1;
-        }
-    }
-    if (bool != 0) {
-        return true;
+    if (isNaN(elem)) {
+        console.log("Error. El elemento introducido no es de tipo 'Number'.");
     } else {
-        return false;
+        var bool = 0;
+        for (var i = 0; i < num_elementos; i++) {
+            if (list[i] == elem) {
+                list[i] = undefined;
+                bool = 1;
+            }
+        }
+        if (bool != 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
-function set(list,elem){
-        for(var i=0;i<list.length;i++){
-            if(list[i]==elem){
-                list[i]=i;
+function set(list, elem, index) {
+    if (isNaN(elem)) {
+        console.log("Error. El elemento introducido no es de tipo 'Number'.");
+    } else {
+        if (index >= num_elementos || index < 0) {
+            console.log("El índice está fuera de los límites.");
+        } else {
+            for (var i = 0; i < num_elementos; i++) {
+                if (list[i] == elem) {
+                    list[i] = index;
+                }
             }
+            return elem;
         }
-        return elem;
     }
+}
 
 
 
@@ -126,6 +176,9 @@ function test() {
     console.log("");
     console.log("Lista inicial:");
     var list = create();
+    for (var i = 0; i < num_elementos - 2; i++) {
+        list[i] = Math.floor(Math.random() * (10 - 0) + 0);
+    }
     console.log(list);
     console.log("isEmpty:");
     console.log(isEmpty(list));
@@ -135,16 +188,18 @@ function test() {
     console.log(size(list));
     console.log("add:");
     console.log(add(list, 2));
+    console.log(list);
     console.log("addAt:");
-    console.log(addAt(list, 0, 0));
+    console.log(addAt(list, 2, 4));
+    console.log(list);
     console.log("get:");
-    console.log(get(list, 1));
+    console.log(get(list, 2));
     console.log("toString:");
     console.log(toString(list));
-    console.log("indexOf: (del 4, por ejemplo)");
-    console.log(indexOf(list, 4));
-    console.log("lastIndexOf: (del 4, por ejemplo)");
-    console.log(indexOf(list, 4));
+    console.log("indexOf: (del 2, por ejemplo)");
+    console.log(indexOf(list, 2));
+    console.log("lastIndexOf: (del 2, por ejemplo)");
+    console.log(indexOf(list, 2));
     console.log("clear:");
     console.log(clear(list));
     console.log("Rellenamos de nuevo la lista aleatoriamente.");
@@ -160,11 +215,13 @@ function test() {
     console.log(remove(list, 0));
     console.log(toString(list));
     console.log("removeElement:");
-    console.log(removeElement(list, 5));
+    console.log(removeElement(list, 1));
     console.log(toString(list));
     console.log("set:");
-    console.log(set(list, 2));
+    console.log(set(list, 9, 4));
     console.log(toString(list));
 }
+
+
 
 window.onload = test;
